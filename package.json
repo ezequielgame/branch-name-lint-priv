@@ -29,7 +29,8 @@
     "test": "npm run lint",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "commitlint": "commitlint --edit"
   },
   "files": [
     "index.js",
@@ -48,6 +49,8 @@
     "meow": "^13.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "eslint": "^9.6.0",
     "husky": "^9.0.11",
     "neostandard": "^0.9.0"
