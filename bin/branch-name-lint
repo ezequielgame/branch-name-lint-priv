@@ -37,14 +37,6 @@ class BranchNameLintCli {
       process.exit(1);
     }
   }
-  constructor() {
-    this.options = this.loadConfiguration(configFileName);
-    const branchNameLint = new BranchNameLint(this.options);
-    const answer = branchNameLint.doValidation();
-    if (answer === 1) {
-      process.exit(1);
-    }
-  }
 
   loadConfiguration (filename = 'package.json') {
     const pkgFile = findUpSync(filename);
