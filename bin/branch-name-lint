@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
 import BranchNameLint from '#src/index.js';
+import BranchNameLint from '#src/index.js';
 import { findUpSync } from 'find-up';
+import { readFileSync } from 'fs';
 import { readFileSync } from 'fs';
 import meow from 'meow';
 
@@ -26,7 +28,7 @@ const cli = meow(`
     }
   }
 });
-const configFileName = cli.input[0];
+const configFileName = cli.input[0] || 'sample-configuration.json';
 
 class BranchNameLintCli {
   constructor() {
@@ -37,8 +39,16 @@ class BranchNameLintCli {
       process.exit(1);
     }
   }
+  constructor() {
+    this.options = this.loadConfiguration(configFileName);
+    const branchNameLint = new BranchNameLint(this.options);
+    const answer = branchNameLint.doValidation();
+    if (answer === 1) {
+      process.exit(1);
+    }
+  }
 
-  loadConfiguration (filename = 'sample-configuration.json') {
+  loadConfiguration (filename = 'package.json') {
     const pkgFile = findUpSync(filename);
     const pkg = JSON.parse(readFileSync(pkgFile));
     return (pkg.branchNameLinter) || {};
