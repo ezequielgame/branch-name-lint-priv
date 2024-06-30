@@ -1,7 +1,7 @@
-const childProcess = require('child_process');
-const util = require('util');
+import { execFileSync } from 'child_process';
+import { format } from 'util';
 
-class BranchNameLint {
+export class BranchNameLint {
   constructor(options) {
     const defaultOptions = {
       prefixes: ['feature', 'hotfix', 'release'],
@@ -82,15 +82,15 @@ class BranchNameLint {
   }
 
   getCurrentBranch() {
-    const branch = childProcess.execFileSync('git', ['rev-parse', '--abbrev-ref', 'HEAD']).toString();
+    const branch = execFileSync('git', ['rev-parse', '--abbrev-ref', 'HEAD']).toString();
     this.branch = branch;
     return this.branch.trim();
   }
 
   error() {
-    console.error('Branch name lint fail!', Reflect.apply(util.format, null, arguments)); // eslint-disable-line prefer-rest-params
+    console.error('Branch name lint fail!', Reflect.apply(format, null, arguments)); // eslint-disable-line prefer-rest-params
     return this.ERROR_CODE;
   }
 }
 
-module.exports = BranchNameLint;
+export default BranchNameLint;

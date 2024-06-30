@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const findUp = require('find-up');
-const meow = require('meow');
-const BranchNameLint = require('../index');
+import { readFileSync } from 'fs';
+import { findUpSync } from 'find-up';
+import meow from 'meow';
+import BranchNameLint from '../index.js';
 
 const cli = meow(`
 	Usage
@@ -14,10 +14,18 @@ const cli = meow(`
 
 	Examples
 	  $ branch-name-lint
-	  Use default configutation or the configuration specified in package.json to validate & lint the branch name.
+	  Use default configuration or the configuration specified in package.json to validate & lint the branch name.
 	  $ branch-name-lint [configuration-file.json]
 	  Use configutation file to validate & lint the branch name.
-`);
+`, {
+	importMeta: import.meta, // This is required
+	flags: {
+		rainbow: {
+			type: 'boolean',
+			shortFlag: 'r'
+		}
+	}
+});
 const configFileName = cli.input[0];
 
 class BranchNameLintCli {
@@ -31,8 +39,8 @@ class BranchNameLintCli {
 	}
 
 	loadConfiguration(filename = 'package.json') {
-		const pkgFile = findUp.sync(filename);
-		const pkg = JSON.parse(fs.readFileSync(pkgFile));
+		const pkgFile = findUpSync(filename);
+		const pkg = JSON.parse(readFileSync(pkgFile));
 		return (pkg.branchNameLinter) || {};
 	}
 }
