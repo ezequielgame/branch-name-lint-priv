@@ -16,7 +16,7 @@ const cli = meow(`
 	  $ branch-name-lint
 	  Use default configuration or the configuration specified in package.json to validate & lint the branch name.
 	  $ branch-name-lint [configuration-file.json]
-	  Use configutation file to validate & lint the branch name.
+	  Use configuration file to validate & lint the branch name.
 `, {
   importMeta: import.meta, // This is required
   flags: {
@@ -38,7 +38,7 @@ class BranchNameLintCli {
     }
   }
 
-  loadConfiguration (filename = 'sample-configuration.json') {
+  loadConfiguration (filename = 'package.json') {
     const pkgFile = findUpSync(filename);
     const pkg = JSON.parse(readFileSync(pkgFile));
     return (pkg.branchNameLinter) || {};

@@ -3,7 +3,40 @@ import { format } from 'util'
 
 export class BranchNameLint {
   constructor (options) {
-    this.options = options
+    const defaultOptions = {
+      prefixes: [
+        'feature',
+        'hotfix',
+        'release',
+        'bugfix',
+        'issue',
+      ],
+      suggestions: {
+        features: 'feature',
+        feat: 'feature',
+        fix: 'hotfix',
+        releases: 'release',
+      },
+      banned: [
+        'wip',
+      ],
+      skip: [
+        'skip-ci',
+      ],
+      disallowed: [
+        'master',
+        'develop',
+        'staging',
+      ],
+      separator: '/',
+      msgBranchBanned: 'Branches with the name "%s" are not allowed.',
+      msgBranchDisallowed: 'Pushing to "%s" is not allowed, use git-flow.',
+      msgPrefixNotAllowed: 'Branch prefix "%s" is not allowed.',
+      msgPrefixSuggestion: 'Instead of "%s" try "%s".',
+      msgDoesNotMatchRegex: 'Branch "%s" does not match the allowed pattern: "%s"',
+      msgSeparatorRequired: 'Branch "%s" must contain a separator "%s".',
+    }
+    this.options = { ...defaultOptions, ...options }
     this.branch = this.getCurrentBranch()
     this.ERROR_CODE = 1
     this.SUCCESS_CODE = 0
