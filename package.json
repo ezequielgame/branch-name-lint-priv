@@ -33,9 +33,11 @@
     "commitlint": "commitlint --edit"
   },
   "files": [
-    "index.js",
-    "cli.js"
+    "src"
   ],
+  "imports": {
+    "#src/*": "./src/*"
+  },
   "keywords": [
     "cli-app",
     "cli",
