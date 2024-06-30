@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { readFileSync } from 'fs';
+import BranchNameLint from '#src/index.js';
 import { findUpSync } from 'find-up';
+import { readFileSync } from 'fs';
 import meow from 'meow';
-import BranchNameLint from '../index.js';
 
 const cli = meow(`
 	Usage
@@ -18,31 +18,31 @@ const cli = meow(`
 	  $ branch-name-lint [configuration-file.json]
 	  Use configutation file to validate & lint the branch name.
 `, {
-	importMeta: import.meta, // This is required
-	flags: {
-		rainbow: {
-			type: 'boolean',
-			shortFlag: 'r'
-		}
-	}
+  importMeta: import.meta, // This is required
+  flags: {
+    rainbow: {
+      type: 'boolean',
+      shortFlag: 'r'
+    }
+  }
 });
 const configFileName = cli.input[0];
 
 class BranchNameLintCli {
-	constructor() {
-		this.options = this.loadConfiguration(configFileName);
-		const branchNameLint = new BranchNameLint(this.options);
-		const answer = branchNameLint.doValidation();
-		if (answer === 1) {
-			process.exit(1);
-		}
-	}
+  constructor() {
+    this.options = this.loadConfiguration(configFileName);
+    const branchNameLint = new BranchNameLint(this.options);
+    const answer = branchNameLint.doValidation();
+    if (answer === 1) {
+      process.exit(1);
+    }
+  }
 
-	loadConfiguration(filename = 'package.json') {
-		const pkgFile = findUpSync(filename);
-		const pkg = JSON.parse(readFileSync(pkgFile));
-		return (pkg.branchNameLinter) || {};
-	}
+  loadConfiguration (filename = 'sample-configuration.json') {
+    const pkgFile = findUpSync(filename);
+    const pkg = JSON.parse(readFileSync(pkgFile));
+    return (pkg.branchNameLinter) || {};
+  }
 }
 
 new BranchNameLintCli(); // eslint-disable-line no-new
