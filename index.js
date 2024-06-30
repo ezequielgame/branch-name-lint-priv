@@ -4,20 +4,20 @@ import { format } from 'util';
 export class BranchNameLint {
   constructor(options) {
     const defaultOptions = {
-      prefixes: ['feature', 'hotfix', 'release'],
+      prefixes: ['feature', 'hotfix', 'release', 'bugfix', 'issue'],
       suggestions: {
         features: 'feature', feat: 'feature', fix: 'hotfix', releases: 'release',
       },
       banned: ['wip'],
-      skip: [],
+      skip: ['skip-ci'],
       disallowed: ['master', 'develop', 'staging'],
       separator: '/',
       msgBranchBanned: 'Branches with the name "%s" are not allowed.',
       msgBranchDisallowed: 'Pushing to "%s" is not allowed, use git-flow.',
       msgPrefixNotAllowed: 'Branch prefix "%s" is not allowed.',
       msgPrefixSuggestion: 'Instead of "%s" try "%s".',
-      msgseparatorRequired: 'Branch "%s" must contain a separator "%s".',
       msgDoesNotMatchRegex: 'Branch "%s" does not match the allowed pattern: "%s"',
+      msgSeparatorRequired: 'Branch "%s" must contain a separator "%s".',
     };
 
     this.options = Object.assign(defaultOptions, options);
@@ -57,7 +57,7 @@ export class BranchNameLint {
     }
 
     if (this.branch.includes(this.options.separator) === false) {
-      return this.error(this.options.msgseparatorRequired, this.branch, this.options.separator);
+      return this.error(this.options.msgSeparatorRequired, this.branch, this.options.separator);
     }
 
     if (!this.validateWithRegex()) {

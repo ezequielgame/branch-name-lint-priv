@@ -10,6 +10,7 @@
         "suggestions": {
             "features": "feature",
             "feat": "feature",
+            "fix": "hotfix",
             "releases": "release"
         },
         "banned": [
@@ -28,6 +29,7 @@
         "msgBranchDisallowed": "Pushing to \"%s\" is not allowed, use git-flow.",
         "msgPrefixNotAllowed": "Branch prefix \"%s\" is not allowed.",
         "msgPrefixSuggestion": "Instead of \"%s\" try \"%s\".",
-        "msgseparatorRequiredL": "Branch \"%s\" must contain a separator \"%s\"."
+        "msgDoesNotMatchRegex": "Branch \"%s\" does not match the allowed pattern: \"%s\"",
+        "msgSeparatorRequired": "Branch \"%s\" must contain a separator \"%s\"."
     }
 }
