@@ -26,7 +26,7 @@ const cli = meow(`
     }
   }
 });
-const configFileName = cli.input[0] || 'sample-configuration.json';
+const configFileName = cli.input[0];
 
 class BranchNameLintCli {
   constructor() {
@@ -38,7 +38,7 @@ class BranchNameLintCli {
     }
   }
 
-  loadConfiguration (filename = 'package.json') {
+  loadConfiguration (filename = 'sample-configuration.json') {
     const pkgFile = findUpSync(filename);
     const pkg = JSON.parse(readFileSync(pkgFile));
     return (pkg.branchNameLinter) || {};
