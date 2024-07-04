@@ -48,6 +48,7 @@
     "branch"
   ],
   "dependencies": {
+    "chalk": "^5.3.0",
     "find-up": "^7.0.0",
     "meow": "^13.2.0"
   },

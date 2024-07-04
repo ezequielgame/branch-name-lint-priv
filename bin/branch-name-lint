@@ -20,10 +20,22 @@ const cli = meow(`
 `, {
   importMeta: import.meta, // This is required
   flags: {
-    rainbow: {
+    branch: {
+      type: 'string',
+      shortFlag: 'b'
+    },
+    verbose: {
       type: 'boolean',
-      shortFlag: 'r'
-    }
+      shortFlag: 'v'
+    },
+    quiet: {
+      type: 'boolean',
+      shortFlag: 'q'
+    },
+    mute: {
+      type: 'boolean',
+      shortFlag: 'm'
+    },
   }
 });
 const configFileName = cli.input[0];
@@ -31,7 +43,7 @@ const configFileName = cli.input[0];
 class BranchNameLintCli {
   constructor() {
     this.options = this.loadConfiguration(configFileName);
-    const branchNameLint = new BranchNameLint(this.options);
+    const branchNameLint = new BranchNameLint(this.options, cli.flags);
     const answer = branchNameLint.doValidation();
     if (answer === 1) {
       process.exit(1);
