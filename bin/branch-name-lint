@@ -11,12 +11,18 @@ const cli = meow(`
 
 	Options
 	  --help - to get this screen
+   --branch, -b - to specify the branch name to validate
+   --verbose, -v - to show per param validation output
+   --quiet, -q - to suppress error messages and only show the final result
+   --mute, -m - to suppress all output
 
 	Examples
 	  $ branch-name-lint
 	  Use default configuration or the configuration specified in package.json to validate & lint the branch name.
 	  $ branch-name-lint [configuration-file.json]
 	  Use configuration file to validate & lint the branch name.
+	  $ branch-name-lint -b feature/branch-name
+	  Validate & lint the branch name feature/branch-name.
 `, {
   importMeta: import.meta, // This is required
   flags: {
@@ -26,11 +32,11 @@ const cli = meow(`
     },
     verbose: {
       type: 'boolean',
-      shortFlag: 'v'
+      shortFlag: 'v',
     },
     quiet: {
       type: 'boolean',
-      shortFlag: 'q'
+      shortFlag: 'q',
     },
     mute: {
       type: 'boolean',

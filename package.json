@@ -6,23 +6,12 @@
   "repository": "barzik/branch-name-lint",
   "type": "module",
   "author": {
-    "name": "Ran Bar-Zik",
-    "email": "ran.bar.zik@teamaol.com",
-    "url": "https://internet-israel.com"
+    "name": "Ezequiel Gavidia",
+    "email": "ezequiel.gmejia@gmail.com",
+    "url": "https://github.com/ezequielgame"
   },
   "bin": {
     "branch-name-lint": "bin/branch-name-lint"
-  },
-  "engines": {
-    "node": ">=10"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm test && node ./bin/branch-name-lint sample-configuration.json"
-    }
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "scripts": {
     "dev": "npx branch-name-lint",

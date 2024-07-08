@@ -1,35 +1,211 @@
 {
-    "branchNameLinter": {
-        "prefixes": [
-            "feature",
-            "hotfix",
-            "release",
-            "bugfix",
-            "issue"
+  "branchNameLinter": {
+    "banned": [
+      "wip"
+    ],
+    "skip": [
+      "skip-ci"
+    ],
+    "disallowed": [
+      "master",
+      "main",
+      "develop",
+      "staging"
+    ],
+    "separator": "/",
+    "params": {
+      "prefix": {
+        "description": "The prefix for the branch",
+        "required": true,
+        "position": 0,
+        "options": [
+          "feature",
+          "hotfix",
+          "release",
+          "bugfix",
+          "issue"
         ],
         "suggestions": {
-            "features": "feature",
-            "feat": "feature",
-            "fix": "hotfix",
-            "releases": "release"
+          "features": "feature",
+          "feat": "feature",
+          "fix": "hotfix",
+          "releases": "release"
+        }
+      },
+      "description": {
+        "description": "The description of the branch",
+        "required": true,
+        "position": 1,
+        "regex": "[a-z0-9.-]+",
+        "regexOptions": "i",
+        "suggestions": {
+          "regex": [
+            "awesome-feature",
+            "fix-bug",
+            "release-1.0"
+          ]
+        }
+      }
+    },
+    "messages": {
+      "lintSuccess": {
+        "scope": "branchNameLint",
+        "message": "Branch name \"%b\" lint success!",
+        "chalk": {
+          "background": "bgGreen",
+          "color": "white"
         },
-        "banned": [
-            "wip"
-        ],
-        "skip": [
-            "skip-ci"
-        ],
-        "disallowed": [
-            "master",
-            "develop",
-            "staging"
-        ],
-        "separator": "/",
-        "msgBranchBanned": "Branches with the name \"%s\" are not allowed.",
-        "msgBranchDisallowed": "Pushing to \"%s\" is not allowed, use git-flow.",
-        "msgPrefixNotAllowed": "Branch prefix \"%s\" is not allowed.",
-        "msgPrefixSuggestion": "Instead of \"%s\" try \"%s\".",
-        "msgDoesNotMatchRegex": "Branch \"%s\" does not match the allowed pattern: \"%s\"",
-        "msgSeparatorRequired": "Branch \"%s\" must contain a separator \"%s\"."
-    }
+        "indentations": 1
+      },
+      "lintError": {
+        "scope": "branchNameLint",
+        "message": "Branch name \"%b\" lint error!",
+        "chalk": {
+          "background": "bgRed",
+          "color": "white"
+        },
+        "indentations": 1
+      },
+      "branchSkipped": {
+        "scope": "SUCCESS",
+        "message": "Branch \"%b\" is skipped.",
+        "chalk": {
+          "background": "bgGreen",
+          "color": "white"
+        },
+        "indentations": 1
+      },
+      "separatorRequired": {
+        "scope": "ERROR",
+        "message": "Branch \"%b\" must contain a separator \"%s\".",
+        "chalk": {
+          "background": "bgRed",
+          "color": "white"
+        },
+        "indentations": 1
+      },
+      "branchBanned": {
+        "scope": "ERROR",
+        "message": "Branches with the name \"%b\" are not allowed.",
+        "chalk": {
+          "background": "bgRed",
+          "color": "white"
+        },
+        "indentations": 1
+      },
+      "branchDisallowed": {
+        "scope": "ERROR",
+        "message": "Pushing to \"%b\" is not allowed, use git-flow.",
+        "chalk": {
+          "background": "bgRed",
+          "color": "white"
+        },
+        "indentations": 1
+      },
+      "paramsMissing": {
+        "scope": "ERROR",
+        "message": "The branch name must contain at least %pn params.",
+        "chalk": {
+          "background": "bgRed",
+          "color": "white"
+        },
+        "indentations": 1
+      },
+      "nthParamNotValid": {
+        "scope": "ERROR",
+        "message": "The parameter at position %i is not valid. All previous parameters in branch name already validated.",
+        "chalk": {
+          "background": "bgRed",
+          "color": "white"
+        },
+        "indentations": 1
+      },
+      "validatingBranch": {
+        "scope": "INFO",
+        "message": "Validating branch \"%b\".",
+        "chalk": {
+          "background": "bgBlue",
+          "color": "white"
+        },
+        "indentations": 1
+      },
+      "validatingParam": {
+        "scope": "INFO",
+        "message": "Validating \"%pv\" against \"%p\" settings.",
+        "chalk": {
+          "background": "bgBlue",
+          "color": "white"
+        },
+        "indentations": 1
+      },
+      "defaultMissingParam": {
+        "scope": "ERROR",
+        "message": "A valid branch \"%p\" parameter value is missing in the expected position (%pi).",
+        "chalk": {
+          "background": "bgRed",
+          "color": "white"
+        },
+        "indentations": 1
+      },
+      "defaultNotAllowedParam": {
+        "scope": "ERROR",
+        "message": "Branch %p parameter \"%pv\" is not allowed. Valid options are: %po",
+        "chalk": {
+          "background": "bgRed",
+          "color": "white"
+        },
+        "indentations": 1
+      },
+      "defaultSuggestionParam": {
+        "scope": "WARNING",
+        "message": "Did you mean \"%pvs\"?. Other suggestions are: %ps",
+        "chalk": {
+          "background": "bgYellow",
+          "color": "black"
+        },
+        "indentations": 1
+      },
+      "defaultRegexParam": {
+        "scope": "ERROR",
+        "message": "The parameter \"%p\" value \"%pv\" does not match the allowed pattern: \"%pr\". %prs",
+        "chalk": {
+          "background": "bgRed",
+          "color": "white"
+        },
+        "indentations": 1
+      },
+      "defaultValidParam": {
+        "scope": "SUCCESS",
+        "message": "Parameter \"%p\" with value \"%pv\" is valid.",
+        "chalk": {
+          "background": "bgGreen",
+          "color": "white"
+        },
+        "indentations": 1
+      }
+    },
+    "scopeChalks": {
+      "ERROR": {
+        "background": "bgRed",
+        "color": "white"
+      },
+      "SUCCESS": {
+        "background": "bgGreen",
+        "color": "white"
+      },
+      "INFO": {
+        "background": "bgBlue",
+        "color": "white"
+      },
+      "WARNING": {
+        "background": "bgYellow",
+        "color": "black"
+      },
+      "branchNameLint": {
+        "background": "bgWhite",
+        "color": "black"
+      }
+    },
+    "indentation": "\t"
+  }
 }
